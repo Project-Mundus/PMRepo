@@ -13,20 +13,20 @@ const UNITS_PER_METER = 70;
 
 const buildMountJs = (name: string, isAdmin: boolean, settingsJson: string) => `(function(){
   try {
-    if (window.__alduinakChatReady) return;
+    if (window.__mundusChatReady) return;
     if (!window.skyrimPlatform || !window.skyrimPlatform.widgets) return;
-    window.__alduinakChatReady = true;
-    window.__alduinakAdmin = ${isAdmin ? 'true' : 'false'};
+    window.__mundusChatReady = true;
+    window.__mundusAdmin = ${isAdmin ? 'true' : 'false'};
     if (!window.chatMessages) window.chatMessages = [];
 
     // Restore saved settings before the widget mounts so the UI seeds from them.
-    window.__alduinakChatSettings = ${settingsJson};
-    if (window.__alduinakChatSettings && window.__alduinakChatSettings.customHighlights != null) window.__alduinakCustomHighlightsRaw = window.__alduinakChatSettings.customHighlights;
+    window.__mundusChatSettings = ${settingsJson};
+    if (window.__mundusChatSettings && window.__mundusChatSettings.customHighlights != null) window.__mundusCustomHighlightsRaw = window.__mundusChatSettings.customHighlights;
 
     // Force the chat to the upper-left corner.
-    if (!document.getElementById('alduinakChatCss')) {
+    if (!document.getElementById('mundusChatCss')) {
       var st = document.createElement('style');
-      st.id = 'alduinakChatCss';
+      st.id = 'mundusChatCss';
       st.innerHTML = '#chat{top:24px!important;left:24px!important;right:auto!important;bottom:auto!important;}';
       document.head.appendChild(st);
     }
@@ -78,18 +78,18 @@ const buildMountJs = (name: string, isAdmin: boolean, settingsJson: string) => `
       dm:'pm', to:'pm', too:'pm'
     };
 
-    if (!window.__alduinakNames) window.__alduinakNames = [];
-    window.__alduinakSetNames=function(full){
-      window.__alduinakName=String(full==null?'':full);
-      var parts=window.__alduinakName.trim().split(' ').filter(function(x){ return x.length; });
+    if (!window.__mundusNames) window.__mundusNames = [];
+    window.__mundusSetNames=function(full){
+      window.__mundusName=String(full==null?'':full);
+      var parts=window.__mundusName.trim().split(' ').filter(function(x){ return x.length; });
       var arr=[];
-      if (window.__alduinakName.trim()) arr.push(window.__alduinakName.trim());
+      if (window.__mundusName.trim()) arr.push(window.__mundusName.trim());
       if (parts.length>1){ arr.push(parts[0]); arr.push(parts[parts.length-1]); }
       var seen={}, out=[];
       for (var i=0;i<arr.length;i++){ var k=arr[i].toLowerCase(); if(!seen[k]){ seen[k]=1; out.push(arr[i]); } }
-      window.__alduinakNames=out;
+      window.__mundusNames=out;
     };
-    window.__alduinakSetNames(${JSON.stringify(name)});
+    window.__mundusSetNames(${JSON.stringify(name)});
 
     function escapeRe(s){
       var sp='.*+?^()|[]{}$';
@@ -100,10 +100,10 @@ const buildMountJs = (name: string, isAdmin: boolean, settingsJson: string) => `
     // Build highlight matchers: names (whole-word, case-insensitive) + custom words.
     function buildTerms(){
       var terms=[];
-      var names=(window.__alduinakNames||[]).filter(function(n){ return n && n.length>1; });
+      var names=(window.__mundusNames||[]).filter(function(n){ return n && n.length>1; });
       for (var i=0;i<names.length;i++) terms.push(new RegExp('\\\\b'+escapeRe(names[i])+'\\\\b','gi'));
       // custom words: * wildcard, "quotes" = case-sensitive, comma/colon/newline separators.
-      var raw=String(window.__alduinakCustomHighlightsRaw||''), NL=String.fromCharCode(10);
+      var raw=String(window.__mundusCustomHighlightsRaw||''), NL=String.fromCharCode(10);
       var toks=raw.split(',').join(NL).split(':').join(NL).split(String.fromCharCode(13)).join(NL).split(NL);
       for (var j=0;j<toks.length;j++){
         var t=toks[j].trim(); if(!t) continue;
@@ -213,7 +213,7 @@ const buildMountJs = (name: string, isAdmin: boolean, settingsJson: string) => `
       }
       var ch=CH[kind];
       // Cosmetic gate only; the server is authoritative on admin-only commands.
-      if (ch.admin && !window.__alduinakAdmin) return { denied:true };
+      if (ch.admin && !window.__mundusAdmin) return { denied:true };
       if (kind==='pm'){
         var i2=body.indexOf(' ');
         var target=i2<0?body:body.slice(0,i2);
@@ -222,7 +222,7 @@ const buildMountJs = (name: string, isAdmin: boolean, settingsJson: string) => `
         return { kind:kind, segs:[{text:'To '+target+': '+pmText,color:PM}], tab:'personal', fwd:raw };
       }
       if (!body) return null;
-      var n=window.__alduinakName||'You';
+      var n=window.__mundusName||'You';
       return { kind:kind, segs:fmtLine(kind,n,body), tab:ch.tab, fwd:forwardFor(kind,body) };
     }
 
@@ -263,7 +263,7 @@ const buildMountJs = (name: string, isAdmin: boolean, settingsJson: string) => `
     window.skyrimPlatform.widgets.set([chatWidget].concat(cur)); // always own chat
 
     // Incoming text from the server / other players and distance dimming
-    window.__alduinakAddChat=function(raw, dist){
+    window.__mundusAddChat=function(raw, dist){
       var s=String(raw);
       // Strip the server's "<nonce>" prefix (makes repeats unique so they render).
       var us=s.indexOf('\\u001f');
@@ -301,19 +301,19 @@ const buildMountJs = (name: string, isAdmin: boolean, settingsJson: string) => `
         if (d>0) segs=darkenSegs(segs, d/DARKEN_RANGE_M);
         pushSegs(segs,tab);
         if (bubbleRefr && window.skyrimPlatform && window.skyrimPlatform.sendMessage){
-          window.skyrimPlatform.sendMessage('alduinakChatBubble', bubbleRefr, segs.map(function(x){ return x.text; }).join(''));
+          window.skyrimPlatform.sendMessage('mundusChatBubble', bubbleRefr, segs.map(function(x){ return x.text; }).join(''));
         }
       }
     };
 
     // Vanilla-style corner notifications system tab
-    window.__alduinakAddSystem=function(text){
+    window.__mundusAddSystem=function(text){
       var t=String(text==null?'':text); if(!t) return;
       pushSegs([{text:t,color:SYS}],'system');
     };
 
     // Lines triggered by spells, conditions, zones, etc
-    window.__alduinakAddFlavor=function(text){
+    window.__mundusAddFlavor=function(text){
       var t=String(text==null?'':text); if(!t) return;
       pushSegs([{text:t,color:SYS}], CH.flavor.tab);
     };
@@ -328,7 +328,7 @@ export class ChatService extends ClientListener {
   }
 
   private onBrowserMessage(e: BrowserMessageEvent): void {
-    if (e.arguments[0] === "alduinakChatBubble") {
+    if (e.arguments[0] === "mundusChatBubble") {
       this.showBubble(Number(e.arguments[1] ?? 0), String(e.arguments[2] ?? ""));
       return;
     }
@@ -407,20 +407,20 @@ export class ChatService extends ClientListener {
     const isAdminNow = owner["isAdmin"] === true;
     if (isAdminNow !== this.lastAdmin) {
       this.lastAdmin = isAdminNow;
-      this.sp.browser.executeJavaScript(`window.__alduinakAdmin = ${isAdminNow ? "true" : "false"};`);
+      this.sp.browser.executeJavaScript(`window.__mundusAdmin = ${isAdminNow ? "true" : "false"};`);
     }
 
     const liveName = appearance?.name;
     if (liveName && liveName !== this.lastName) {
       this.lastName = liveName;
-      this.sp.browser.executeJavaScript(`window.__alduinakSetNames && window.__alduinakSetNames(${JSON.stringify(liveName)});`);
+      this.sp.browser.executeJavaScript(`window.__mundusSetNames && window.__mundusSetNames(${JSON.stringify(liveName)});`);
     }
 
     const msg = owner[CHAT_MSG_PROP];
     if (typeof msg === "string" && msg !== "" && msg !== this.lastMsg) {
       this.lastMsg = msg;
       const dist = this.senderDistanceMeters(msg);
-      this.sp.browser.executeJavaScript(`window.__alduinakAddChat && window.__alduinakAddChat(${JSON.stringify(msg)}, ${dist});`);
+      this.sp.browser.executeJavaScript(`window.__mundusAddChat && window.__mundusAddChat(${JSON.stringify(msg)}, ${dist});`);
       this.maybeShowSystemOverlay(msg);
     }
   }

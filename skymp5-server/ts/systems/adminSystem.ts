@@ -251,7 +251,7 @@ export class AdminSystem implements System {
 
   // Routes into the gamemode's admin.log + staff channel when loaded
   private adminLog(text: string): void {
-    try { (globalThis as any).__alduinakAdminLog?.(text); } catch { }
+    try { (globalThis as any).__mundusAdminLog?.(text); } catch { }
   }
 
   customPacket(userId: number, type: string, content: Content, ctx: SystemContext): void {

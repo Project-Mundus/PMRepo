@@ -23,17 +23,17 @@ function readEnv(key) {
   } catch { return '' }
 }
 
-const serverSettings = process.env.ALDUINAK_SERVER_SETTINGS
+const serverSettings = process.env.MUNDUS_SERVER_SETTINGS
   || path.join(repoRoot, 'build', 'dist', 'server', 'server-settings.json')
 
 module.exports = {
   repoRoot,
-  logDir:   process.env.ALDUINAK_LOG_DIR || 'C:\\logs',
+  logDir:   process.env.MUNDUS_LOG_DIR || 'C:\\logs',
   nssm:     nssmPath(),
 
   // Build output directory. Holds dist/ (the CI-built client/server payloads the
   // launcher and game server consume) and launcher/ (the Electron installer).
-  buildDir: process.env.ALDUINAK_BUILD_DIR || path.join(repoRoot, 'build'),
+  buildDir: process.env.MUNDUS_BUILD_DIR || path.join(repoRoot, 'build'),
 
   // nssm services. `key` is the short label shown in the UI; `name` is the
   // actual Windows service. Order is the start order (stop order is reversed).
@@ -42,15 +42,15 @@ module.exports = {
   // Renamed services: migrate the live box by re-running build/dist/server/install-services.bat
   // legacyNames are pre-rename service names the manager falls back to until then.
   services: [
-    { key: 'nginx',   name: 'AlduinakNginx',      legacyNames: ['SkyrpNginx', 'SkyMPNginx'],      label: 'Nginx'    },
-    { key: 'backend', name: 'AlduinakBackend',    legacyNames: ['SkyrpBackend', 'SkyRP-Backend'], label: 'Backend'  },
-    { key: 'game',    name: 'AlduinakGameServer', legacyNames: ['SkyrpGameServer'],               label: 'Game'     },
+    { key: 'nginx',   name: 'MundusNginx',      legacyNames: ['AlduinakNginx', 'SkyrpNginx', 'SkyMPNginx'],        label: 'Nginx'    },
+    { key: 'backend', name: 'MundusBackend',    legacyNames: ['AlduinakBackend', 'SkyrpBackend', 'SkyRP-Backend'], label: 'Backend'  },
+    { key: 'game',    name: 'MundusGameServer', legacyNames: ['AlduinakGameServer', 'SkyrpGameServer'],            label: 'Game'     },
   ],
 
   // Reference MO2 install used to compile the manifest (the Modlist tab).
-  mo2Root:  process.env.ALDUINAK_MO2_ROOT  || 'X:\\MO2',
-  gameRoot: process.env.ALDUINAK_GAME_ROOT || 'X:\\GOG Games\\Skyrim Anniversary Edition',
-  profile:  process.env.ALDUINAK_MO2_PROFILE || 'Default',
+  mo2Root:  process.env.MUNDUS_MO2_ROOT  || 'C:\\Games\\Project Mundus',
+  gameRoot: process.env.MUNDUS_GAME_ROOT || 'C:\\Games\\Project Mundus\\skyrim',
+  profile:  process.env.MUNDUS_MO2_PROFILE || 'Project Mundus',
 
   paths: {
     launcher:     path.join(repoRoot, 'skymp5-launcher'),
@@ -69,7 +69,7 @@ module.exports = {
     serverSettings,
     // The game server's working directory: its file-database (changeForms)
     // and data dir live here. Defaults to the folder holding server-settings.json.
-    serverDir:    process.env.ALDUINAK_SERVER_DIR || path.dirname(serverSettings),
+    serverDir:    process.env.MUNDUS_SERVER_DIR || path.dirname(serverSettings),
     launcherOut:  path.join(repoRoot, 'build', 'launcher'),
     clientOut:    path.join(repoRoot, 'build', 'dist', 'client'),
     dataDir:      path.join(repoRoot, 'skymp5-backend', 'data'),
@@ -93,11 +93,11 @@ module.exports = {
   // GitHub Actions dispatch for the CI Rebuild button (needs a PAT with actions:write).
   // token is a getter so a PAT saved on the Settings tab works without a manager restart.
   github: {
-    get token() { return process.env.ALDUINAK_GH_TOKEN || readEnv('ALDUINAK_GH_TOKEN') },
-    repo:     process.env.ALDUINAK_GH_REPO || 'Alduinak-RP/alduinak',
-    workflow: process.env.ALDUINAK_GH_WORKFLOW || 'dist-windows-flatrim.yml',
-    ref:      process.env.ALDUINAK_GH_REF || 'main',
+    get token() { return process.env.MUNDUS_GH_TOKEN || readEnv('MUNDUS_GH_TOKEN') },
+    repo:     process.env.MUNDUS_GH_REPO || 'Project-Mundus/PMRepo_Testing',
+    workflow: process.env.MUNDUS_GH_WORKFLOW || 'dist-windows-flatrim.yml',
+    ref:      process.env.MUNDUS_GH_REF || 'main',
   },
 
-  launcherArtifact: 'AlduinakLauncher.exe',
+  launcherArtifact: 'MundusLauncherSetup.exe',
 }

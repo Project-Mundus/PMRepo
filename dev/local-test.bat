@@ -1,6 +1,6 @@
 @echo off
 REM ============================================================================
-REM  Alduinak local dev test: offline server + Skyrim, no VPS / OAuth / backend.
+REM  Project Mundus local dev test: offline server + Skyrim, no VPS / OAuth / backend.
 REM
 REM  In offline mode the game server needs NO master API, NO backend, NO nginx.
 REM  This copies a dev (offline) server-settings.json into the server dist,
@@ -22,7 +22,7 @@ setlocal
 REM ---- CONFIG (edit these) ---------------------------------------------------
 set "REPO=%~dp0.."
 set "SERVER_DIR=%REPO%\build\dist\server"
-set "GAME_DIR=C:\Alduinak\skyrim"
+set "GAME_DIR=C:\Games\ProjectMundus"
 set "PROFILE_ID=1"
 set "PORT=7777"
 REM ----------------------------------------------------------------------------
@@ -43,7 +43,7 @@ del /q "%SERVER_DIR%\server-settings-dump.json" "%SERVER_DIR%\server-settings-me
 
 REM 2) start the server in its own window (CWD must be the server dir)
 echo [dev] Starting offline server on port %PORT% ...
-start "Alduinak Dev Server" cmd /k "cd /d "%SERVER_DIR%" && node dist_back\skymp5-server.js"
+start "Project Mundus Dev Server" cmd /k "cd /d "%SERVER_DIR%" && node dist_back\skymp5-server.js"
 
 REM 3) wait for the HTTP UI (ui.ts: port 7777 -> 3000, otherwise port + 1)
 echo [dev] Waiting for the server to come up ...

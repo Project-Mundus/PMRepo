@@ -1,6 +1,6 @@
-const config = window.ALDUINAK_DASHBOARD_CONFIG || {}
+const config = window.MUNDUS_DASHBOARD_CONFIG || {}
 const apiBaseUrl = (config.apiBaseUrl || '').replace(/\/$/, '')
-const tokenKey = 'alduinak.dashboard.token'
+const tokenKey = 'mundus.dashboard.token'
 
 const state = {
   token: localStorage.getItem(tokenKey) || '',

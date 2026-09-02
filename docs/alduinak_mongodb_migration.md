@@ -1,4 +1,4 @@
-# Alduinak: migrate the world DB from `file` to MongoDB
+# Migration of the world DB from `file` to MongoDB
 
 The `file` driver rewrites the whole dirty-changeform batch as individual
 `.json` files every save cycle (hundreds of file renames while holding the save
@@ -13,14 +13,14 @@ MongoDB installed and running on the box.
 ## Quickstart for the live box (state as of 2026-07-27)
 
 MongoDB 8.0 is now installed via the MSI with its bundled **`MongoDB`** Windows
-service (not the `AlduinakMongo` plan below). Its config is
+service (not the `MundusMongo` plan below). Its config is
 `C:\Program Files\MongoDB\Server\8.0\bin\mongod.cfg` and data/log already live
 on `X:\Program Files\MongoDB\Server\8.0\`. Auth starts disabled and `mongosh`
 is not installed by that MSI (get it:
 https://downloads.mongodb.com/compass/mongosh-2.9.2-x64.msi).
 
 `deploy\mongodb\finish-mongodb-x.ps1` automates steps 0-3 of this doc for that
-layout: world backup to `X:\Alduinak\backups`, user creation, enabling auth,
+layout: world backup to `X:\ProjectMundus\backups`, user creation, enabling auth,
 patching `server-settings.json` (run once plain, start the game server once to
 migrate, then re-run with `-Finalize`). The manual steps below remain the
 reference for what it does.

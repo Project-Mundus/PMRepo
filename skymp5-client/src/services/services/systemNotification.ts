@@ -7,7 +7,7 @@ export const showSystemNotification = (sp: Sp, text: string): void => {
   if (!t) return;
   try {
     sp.browser.executeJavaScript(
-      `window.__alduinakAddSystem && window.__alduinakAddSystem(${JSON.stringify(t)});`
+      `window.__mundusAddSystem && window.__mundusAddSystem(${JSON.stringify(t)});`
     );
   } catch (e) {
     // ignore

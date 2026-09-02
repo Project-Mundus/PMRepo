@@ -1,4 +1,4 @@
-// Proximity voice chat over LiveKit, driven by the game side via window.__alduinakVoice (skymp5-client voiceService.ts).
+// Proximity voice chat over LiveKit, driven by the game side via window.__mundusVoice (skymp5-client voiceService.ts).
 // Plain JS on purpose: the repo pins TypeScript 4.6 and livekit-client's types need 5.x.
 // Contract with the game side:
 //   connect(url, token, cfg)  join the room; cfg = { modes: [{key,label,units}], mode }
@@ -235,7 +235,7 @@ class VoiceManager {
   ensureBanner() {
     if (this.bannerEl) return this.bannerEl;
     const img = document.createElement('img');
-    img.id = 'alduinak-voice-banner';
+    img.id = 'mundus-voice-banner';
     img.style.cssText =
       'position:fixed;bottom:6vh;left:2vw;z-index:99999;width:9vw;min-width:110px;' +
       'max-width:170px;height:auto;pointer-events:none;opacity:0;' +
@@ -262,12 +262,12 @@ class VoiceManager {
   }
 }
 
-window.__alduinakVoice = new VoiceManager();
+window.__mundusVoice = new VoiceManager();
 
 // Failsafe: if the game stops feeding distances (main menu, script reload), go silent instead of playing stale volumes.
 // Also heartbeat the range so listeners who missed the data packet eventually heal.
 setInterval(() => {
-  const vm = window.__alduinakVoice;
+  const vm = window.__mundusVoice;
   if (!vm.room) return;
   if (vm.lastPeersAt && Date.now() - vm.lastPeersAt > 5000) {
     vm.distances = {};
@@ -278,4 +278,4 @@ setInterval(() => {
   }
 }, 2000);
 
-export default window.__alduinakVoice;
+export default window.__mundusVoice;

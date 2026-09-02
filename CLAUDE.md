@@ -69,7 +69,7 @@ single most common source of "the fix didn't work":
 
 The manager Build tab has a **Native (C++)** button that compiles locally with
 CMake/MSVC; VS 2022 with the C++ workload is installed on this box. The **CI
-Rebuild** button needs `ALDUINAK_GH_TOKEN` in `skymp5-backend/.env`.
+Rebuild** button needs `MUNDUS_GH_TOKEN` in `skymp5-backend/.env`.
 
 Verify a native change actually shipped before blaming the code: the CEF/browser
 code compiles into `SkyrimPlatformImpl.dll` (not `SkyrimPlatform.dll`), so

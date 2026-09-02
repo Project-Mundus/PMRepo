@@ -2,14 +2,14 @@
 setlocal
 
 :: ============================================================
-::   Alduinak backend one-click installer. Double-click to run.
+::   Project Mundus backend one-click installer. Double-click to run.
 :: ============================================================
 
 set "BACKEND_DIR=%~dp0"
 if "%BACKEND_DIR:~-1%"=="\" set "BACKEND_DIR=%BACKEND_DIR:~0,-1%"
 set "LOG_DIR=C:\logs"
 set "NSSM_DIR=C:\tools\nssm"
-set "SERVICE=AlduinakBackend"
+set "SERVICE=MundusBackend"
 
 :: Elevate to admin
 net session >nul 2>&1
@@ -20,7 +20,7 @@ if errorlevel 1 (
 )
 
 echo.
-echo === Alduinak backend setup ===
+echo === Project Mundus backend setup ===
 echo Backend folder: %BACKEND_DIR%
 echo.
 
@@ -97,6 +97,8 @@ echo Configuring service: %SERVICE%
 "%NSSM%" remove SkyRP-Backend confirm >nul 2>&1
 "%NSSM%" stop SkyrpBackend >nul 2>&1
 "%NSSM%" remove SkyrpBackend confirm >nul 2>&1
+"%NSSM%" stop AlduinakBackend >nul 2>&1
+"%NSSM%" remove AlduinakBackend confirm >nul 2>&1
 "%NSSM%" install %SERVICE% "%NODE_EXE%" "server.js"
 "%NSSM%" set %SERVICE% AppDirectory "%BACKEND_DIR%"
 "%NSSM%" set %SERVICE% AppStdout "%LOG_DIR%\backend.log"
@@ -109,7 +111,8 @@ echo Configuring service: %SERVICE%
 :: Firewall
 netsh advfirewall firewall delete rule name="SkyRP WS Relay TCP 7778" >nul 2>&1
 netsh advfirewall firewall delete rule name="Alduinak WS Relay TCP 7778" >nul 2>&1
-netsh advfirewall firewall add  rule name="Alduinak WS Relay TCP 7778" dir=in action=allow protocol=TCP localport=7778
+netsh advfirewall firewall delete rule name="Project Mundus WS Relay TCP 7778" >nul 2>&1
+netsh advfirewall firewall add  rule name="Project Mundus WS Relay TCP 7778" dir=in action=allow protocol=TCP localport=7778
 
 :: Start
 echo Starting %SERVICE%...

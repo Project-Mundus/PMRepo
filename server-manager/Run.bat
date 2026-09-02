@@ -1,5 +1,5 @@
 @echo off
-::  Launch the Alduinak Server Manager (everyday use).
+::  Launch the Project Mundus Server Manager (everyday use).
 ::  Self-elevates so the Console tab can control the Windows
 ::  services. Run setup.bat once first to install dependencies.
 

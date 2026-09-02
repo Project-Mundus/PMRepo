@@ -629,7 +629,7 @@ export class TradeSystem implements System {
       + '] to ' + this.describeParty(mp, s.b) + ' for [' + this.describeOffer(s.offerB) + ']';
     this.log(summary);
     // trading.log via the gamemode's shared appender (same pattern as adminLog)
-    try { (globalThis as any).__alduinakTradeLog?.(summary); } catch { /* log only */ }
+    try { (globalThis as any).__mundusTradeLog?.(summary); } catch { /* log only */ }
   }
 
   // JSON-quoted name plus fixed-position ids, so a crafted character name
@@ -645,7 +645,7 @@ export class TradeSystem implements System {
     if (!offer.length) {
       return 'nothing';
     }
-    const nameOf = (globalThis as any).__alduinakItemName;
+    const nameOf = (globalThis as any).__mundusItemName;
     return offer.map((i) => {
       let label = i.count + 'x 0x' + (i.baseId >>> 0).toString(16);
       try {

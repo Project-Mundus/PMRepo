@@ -3,7 +3,7 @@ import { ClientListener, CombinedController, Sp } from "./clientListener";
 import { logTrace } from "../../logging";
 
 // Drives the main-menu background video + music in the CEF front
-// (window.__alduinakMenuMedia): shown while the player sits in the login /
+// (window.__mundusMenuMedia): shown while the player sits in the login /
 // character-select phase, hidden once actually in the world, shown again on a
 // quit back to the main menu. The mute choice persists like chat settings.
 
@@ -75,14 +75,14 @@ export class MenuMediaService extends ClientListener {
     if (!this.frontLoaded) return;
     logTrace(this, "Showing main menu media");
     this.sp.browser.executeJavaScript(
-      `window.__alduinakMenuMedia && window.__alduinakMenuMedia.show(${this.readSettings()})`
+      `window.__mundusMenuMedia && window.__mundusMenuMedia.show(${this.readSettings()})`
     );
   }
 
   private hide(): void {
     logTrace(this, "Hiding main menu media");
     this.sp.browser.executeJavaScript(
-      "window.__alduinakMenuMedia && window.__alduinakMenuMedia.hide()"
+      "window.__mundusMenuMedia && window.__mundusMenuMedia.hide()"
     );
   }
 }

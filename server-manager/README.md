@@ -1,7 +1,6 @@
-# Alduinak Server Manager
+# Project Mundus Server Manager
 
-Desktop control panel for the Alduinak server. Runs on the server box. **Run it as
-Administrator** - service control (nssm) needs it.
+Desktop control panel for the Project Mundus server. Runs on the server box. **Run it as Administrator** - service control (nssm) needs it.
 
 ```bash
 cd server-manager
@@ -72,7 +71,7 @@ Each Build button then does the JS/packaging work:
 | Button | Does |
 |--------|------|
 | **Game Server** | Bundles the TypeScript → `build/dist/server/dist_back/skymp5-server.js`, then prunes `build/dist/server` to the deploy set. `scam_native.node` (from CI) and `gamemode.js` are preserved. |
-| **Launcher** | Builds the Electron installer `AlduinakLauncher.exe` → `build/launcher`. |
+| **Launcher** | Builds the Electron installer `MundusLauncherSetup.exe` → `build/launcher`. |
 | **Client** | Runs the backend `build-client` script (`populate-files.js` + `merge-files.js`) to zip `build/dist/client/Data` into `skymp-client.zip` + `data/files-version.json` for the launcher to download. The version is taken from `CLIENT_VERSION` in the backend `.env` - set it from the **Client** version field before building. |
 
 **Missing prerequisites are installed automatically.** On Windows each build
@@ -80,7 +79,7 @@ button checks for **Node.js** and **Git** and installs anything missing with
 `winget` (the manager runs elevated), refreshing PATH from the registry so the
 new tools work without restarting the manager. That's the whole toolchain now,
 no CMake, MSVC, vcpkg, or yarn, since nothing is compiled locally. Set
-`ALDUINAK_NO_AUTO_INSTALL=1` to opt out (you'll get a manual-install hint with links
+`MUNDUS_NO_AUTO_INSTALL=1` to opt out (you'll get a manual-install hint with links
 instead). If `winget` itself isn't available, the build stops with links to
 install the tools by hand.
 
@@ -95,7 +94,7 @@ node server-manager/tools/gen-signing-keys.js
 ```
 
 This writes `sign-gamemode.js` + `signing-private.pem` into `build/dist/server`
-(honours `ALDUINAK_BUILD_DIR`, refuses to overwrite an existing key without
+(honours `MUNDUS_BUILD_DIR`, refuses to overwrite an existing key without
 `--force`) and prints the entries to merge into
 `skymp5-backend/data/public-keys.json` - both the `GM...` key id and the same
 id without the `GM` prefix are required (different client services parse the
@@ -128,15 +127,15 @@ executes `help`, `status`, `players`, `say <text>`, `notify <name|all> <text>`,
 
 | Var | Default | Purpose |
 |-----|---------|---------|
-| `ALDUINAK_LOG_DIR` | `C:\logs` | Fallback log directory (nssm-configured paths win) |
-| `ALDUINAK_SERVER_DIR` | folder of `server-settings.json` | Game server working dir (holds the `world/changeForms` save store) |
-| `ALDUINAK_SERVER_SETTINGS` | `build/dist/server/server-settings.json` | Server settings file edited by the Settings tab |
-| `ALDUINAK_MO2_ROOT` | `X:\MO2` | Reference MO2 install (Modlist tab) |
-| `ALDUINAK_GAME_ROOT` | `X:\GOG Games\Skyrim Anniversary Edition` | Game root |
-| `ALDUINAK_MO2_PROFILE` | `Default` | MO2 profile to compile |
-| `ALDUINAK_BUILD_DIR` | `<repo>\build` | Build output dir; the CI `dist/` payloads and the launcher land here |
-| `ALDUINAK_SERVER_KEEP` | *(none)* | Comma-separated extra names to preserve when pruning `build/dist/server` |
-| `ALDUINAK_NO_AUTO_INSTALL` | *(unset)* | Set to `1` to disable auto-installing prerequisites (Node/Git) via winget |
+| `MUNDUS_LOG_DIR` | `C:\logs` | Fallback log directory (nssm-configured paths win) |
+| `MUNDUS_SERVER_DIR` | folder of `server-settings.json` | Game server working dir (holds the `world/changeForms` save store) |
+| `MUNDUS_SERVER_SETTINGS` | `build/dist/server/server-settings.json` | Server settings file edited by the Settings tab |
+| `MUNDUS_MO2_ROOT` | `X:\MO2` | Reference MO2 install (Modlist tab) |
+| `MUNDUS_GAME_ROOT` | `X:\GOG Games\Skyrim Anniversary Edition` | Game root |
+| `MUNDUS_MO2_PROFILE` | `Default` | MO2 profile to compile |
+| `MUNDUS_BUILD_DIR` | `<repo>\build` | Build output dir; the CI `dist/` payloads and the launcher land here |
+| `MUNDUS_SERVER_KEEP` | *(none)* | Comma-separated extra names to preserve when pruning `build/dist/server` |
+| `MUNDUS_NO_AUTO_INSTALL` | *(unset)* | Set to `1` to disable auto-installing prerequisites (Node/Git) via winget |
 
 The repo path, service names, and the WS relay port/secret (from the backend
 `.env`) are detected automatically.

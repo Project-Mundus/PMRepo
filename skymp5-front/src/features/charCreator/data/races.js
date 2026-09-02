@@ -2,7 +2,7 @@
 // Slugs and form ids MUST stay in sync with skymp5-server/ts/systems/charCreatorData.ts; change them together.
 // Form ids were extracted from the live server load order (Skyrim.esm + DLC).
 // `placeholder: true` marks races that reuse a vanilla race until a custom esp
-// lands in AlduinakPatchMerged; swap `raceId` there when the esp is ready.
+// lands in MundusPatchMerged; swap `raceId` there when the esp is ready.
 // Lore blurbs are placeholders for the server's own descriptions.
 
 const NORD = 0x13746;

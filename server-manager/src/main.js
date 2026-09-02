@@ -107,12 +107,12 @@ async function act(svc, verb) {
   return { ok: false, text: `${verb} failed (status: ${r.status || 'unknown'})` }
 }
 
-// Best-effort LiveKit (voice media server) start alongside the game server; boxes without the AlduinakLiveKit service skip silently.
+// Best-effort LiveKit (voice media server) start alongside the game server; boxes without the MundusLiveKit service skip silently.
 async function startLiveKitAlongside() {
-  const status = await nssm('status', 'AlduinakLiveKit')
+  const status = await nssm('status', 'MundusLiveKit')
   if (!/^SERVICE_/.test(status) || status === 'SERVICE_RUNNING') return ''
-  await nssm('start', 'AlduinakLiveKit')
-  const r = await awaitStatus('AlduinakLiveKit', 'SERVICE_RUNNING')
+  await nssm('start', 'MundusLiveKit')
+  const r = await awaitStatus('MundusLiveKit', 'SERVICE_RUNNING')
   return r.ok ? ' (+LiveKit)' : ` (LiveKit start failed: ${r.status || 'unknown'})`
 }
 
@@ -127,7 +127,7 @@ function datestamp(d) {
 // chat.log lives wherever the gamemode writes it; mirror its resolution chain
 // (env var, then the optional logDir key in server-settings.json, then default).
 function chatLogDir() {
-  return process.env.ALDUINAK_LOG_DIR || readServerSettings().logDir || 'C:\\logs'
+  return process.env.MUNDUS_LOG_DIR || readServerSettings().logDir || 'C:\\logs'
 }
 
 // The nssm-configured stdout/stderr files for a service, plus the gamemode's
@@ -439,7 +439,7 @@ ipcMain.handle('build:gamemode', () => runBuild('gamemode'))
 function ghDispatch() {
   return new Promise((resolve) => {
     const g = config.github
-    if (!g.token) return resolve({ ok: false, error: 'No GitHub token. Set ALDUINAK_GH_TOKEN in skymp5-backend/.env (a PAT with actions:write scope).' })
+    if (!g.token) return resolve({ ok: false, error: 'No GitHub token. Set MUNDUS_GH_TOKEN in skymp5-backend/.env (a PAT with actions:write scope).' })
     const body = JSON.stringify({ ref: g.ref })
     const req = https.request({
       hostname: 'api.github.com',
@@ -448,7 +448,7 @@ function ghDispatch() {
       headers: {
         'Authorization': `Bearer ${g.token}`,
         'Accept': 'application/vnd.github+json',
-        'User-Agent': 'AlduinakManager',
+        'User-Agent': 'MundusManager',
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(body),
         'X-GitHub-Api-Version': '2022-11-28',
@@ -991,7 +991,7 @@ ipcMain.handle('modlist:read', () => {
   }
   const modlist = readLines('modlist.txt')
   const plugins = readLines('plugins.txt')
-  if (!modlist) return { ok: false, error: `No modlist.txt under ${profileDir}. Check ALDUINAK_MO2_ROOT / profile.` }
+  if (!modlist) return { ok: false, error: `No modlist.txt under ${profileDir}. Check MUNDUS_MO2_ROOT / profile.` }
 
   const mods = [], separators = []
   for (const line of modlist) {

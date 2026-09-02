@@ -5,8 +5,8 @@ document.getElementById('btn-close').addEventListener('click',    () => window.e
 
 // External nav links
 const EXTERNAL_URLS = {
-  website: 'https://alduinak.com/',           // e.g. 'https://example.com'
-  discord: 'https://discord.gg/Pkxdgt6W8q',   // e.g. 'https://discord.gg/...'
+  website: "https://projectmundus.com/",           // e.g. "https://example.com"
+  discord: "https://discord.gg/WytBk3GDQv",   // e.g. "https://discord.gg/..."
 }
 
 document.querySelectorAll('.topnav-link[data-href]').forEach(link => {
@@ -549,14 +549,14 @@ async function refreshIsolatedStatus() {
   isolatedGroup.hidden = !fieldIsolated.checked
   btnCreateIsolated.hidden = !fieldIsolated.checked
   if (!st.ready) {
-    isolatedDot.className    = 'vortex-status-dot'
+    isolatedDot.className    = 'mo2-status-dot'
     isolatedText.textContent = 'Game copy not installed yet - use Install Game Copy'
   } else if (!fieldIsolated.checked) {
-    isolatedDot.className    = 'vortex-status-dot dot-warn'
-    isolatedText.textContent = 'Alduinak install exists - playing from the original Skyrim'
+    isolatedDot.className    = 'mo2-status-dot dot-warn'
+    isolatedText.textContent = 'Project Mundus install exists - playing from the original Skyrim'
   } else {
-    isolatedDot.className    = 'vortex-status-dot dot-ok'
-    isolatedText.textContent = `Alduinak installed at ${st.base || st.dir}`
+    isolatedDot.className    = 'mo2-status-dot dot-ok'
+    isolatedText.textContent = `Project Mundus installed at ${st.base || st.dir}`
   }
   refreshDownloadModsState(st)
 }
@@ -578,7 +578,7 @@ btnCreateIsolated.addEventListener('click', async () => {
     installLog(`Error: ${result.error}`)
     return
   }
-  // The base may have been nested under \Alduinak - reflect what was used.
+  // The base may have been nested under \ProjectMundus - reflect what was used.
   if (result.dir) fieldBaseDir.value = result.dir
   installLog('Game copy ready ✓')
   fieldIsolated.checked = true
@@ -614,7 +614,7 @@ document.getElementById('btn-browse').addEventListener('click', async () => {
 
 // Browse install location (dialog fallback for the Install Location field)
 document.getElementById('btn-browse-base').addEventListener('click', async () => {
-  const folder = await window.electronAPI.openFolder('Choose where to install Alduinak (~16 GB: MO2 + game copy)')
+  const folder = await window.electronAPI.openFolder('Choose where to install Project Mundus')
   if (folder) fieldBaseDir.value = folder
 })
 
@@ -643,13 +643,13 @@ async function refreshMo2Status() {
     : 'You will need to install mods manually.'
 
   if (!status.installed) {
-    mo2StatusDot.className    = 'vortex-status-dot'
+    mo2StatusDot.className    = 'mo2-status-dot'
     mo2StatusText.textContent = 'MO2 not installed yet - use Install MO2'
   } else if (!enabled) {
-    mo2StatusDot.className    = 'vortex-status-dot dot-warn'
+    mo2StatusDot.className    = 'mo2-status-dot dot-warn'
     mo2StatusText.textContent = `MO2 ${status.version} ready (${status.modCount} mods) - launching without it`
   } else {
-    mo2StatusDot.className    = 'vortex-status-dot dot-ok'
+    mo2StatusDot.className    = 'mo2-status-dot dot-ok'
     mo2StatusText.textContent = `MO2 ${status.version} active (${status.modCount} mods)`
   }
 }
@@ -851,7 +851,7 @@ function updatePlayButton() {
   if (!isoReady) {
     btnConnect.disabled    = false
     btnConnect.textContent = '\u2699 INSTALL'
-    btnConnect.title       = 'Installs Alduinak automatically, then launches.'
+    btnConnect.title       = 'Installs Project Mundus automatically, then launches.'
     return
   }
 

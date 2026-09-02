@@ -1,9 +1,9 @@
 {
-  "name": "alduinak-server-manager",
+  "name": "mundus-server-manager",
   "version": "1.0.0",
-  "description": "Desktop control panel for the Alduinak server: services, launcher, modlist, client and players",
+  "description": "Desktop control panel for the Project Mundus server: services, launcher, modlist, client and players",
   "main": "src/main.js",
-  "author": "Alduinak",
+  "author": "Project Mundus",
   "license": "MIT",
   "scripts": {
     "start": "electron .",
@@ -18,8 +18,8 @@
     "electron-builder": "26.8.1"
   },
   "build": {
-    "appId": "com.alduinak.manager",
-    "productName": "Alduinak Server Manager",
+    "appId": "com.projectmundus.manager",
+    "productName": "Mundus Server Manager",
     "directories": {
       "output": "../build/server-manager"
     },

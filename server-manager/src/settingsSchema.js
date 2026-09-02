@@ -60,7 +60,7 @@ const serverSettings = [
   { key: 'databaseDriver', label: 'Database driver', type: 'select', group: 'Data & storage', options: ['file', 'mongodb', 'zip', 'migration'] },
   { key: 'databaseName',   label: 'Database name',   type: 'text',   group: 'Data & storage', placeholder: 'world', help: 'File DB folder / Mongo db name. Characters live in <name>/changeForms.' },
   { key: 'databaseUri',    label: 'Database URI',    type: 'secret', group: 'Data & storage', placeholder: 'mongodb://user:pass@127.0.0.1:27017', help: 'Mongo connection string (mongodb driver only). Embeds credentials - keep it secret.' },
-  { key: 'logDir',         label: 'Log directory',   type: 'text',   group: 'Data & storage', placeholder: 'C:\\logs', help: 'Where chat.log and service logs are written. Overridden by the ALDUINAK_LOG_DIR env var.' },
+  { key: 'logDir',         label: 'Log directory',   type: 'text',   group: 'Data & storage', placeholder: 'C:\\logs', help: 'Where chat.log and service logs are written. Overridden by the MUNDUS_LOG_DIR env var.' },
 
   // Complex / nested (rendered as JSON sub-editors)
   { key: 'loadOrder',     label: 'Load order',     type: 'json', group: 'Advanced', help: 'Array of ESM/ESP filenames in order.' },
@@ -140,7 +140,7 @@ const backendEnv = [
   { key: 'CLIENT_FILES_DIR',      label: 'Client files directory', type: 'text',  group: 'Client updates', help: 'Bucket holding skymp-client.zip and the served client files. Empty = build/client-files.' },
 
   // CI & tooling
-  { key: 'ALDUINAK_GH_TOKEN',     label: 'GitHub token (PAT)',    type: 'secret', group: 'CI & tooling', help: 'PAT with actions:write - powers the manager CI Rebuild (workflow dispatch).' },
+  { key: 'MUNDUS_GH_TOKEN',     label: 'GitHub token (PAT)',    type: 'secret', group: 'CI & tooling', help: 'PAT with actions:write - powers the manager CI Rebuild (workflow dispatch).' },
 ]
 
 module.exports = { serverSettings, backendEnv }

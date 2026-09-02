@@ -1,6 +1,6 @@
 // Main menu background video + music, mounted outside React (the VoiceManager
 // pattern). The game client drives it through injected JS:
-//   window.__alduinakMenuMedia.show({ musicMuted }) / .hide()
+//   window.__mundusMenuMedia.show({ musicMuted }) / .hide()
 // The mute button reports changes back via
 // sendMessage('cef::menuMedia:saveSettings', json); the client persists them
 // to disk because CEF storage does not survive a relaunch.
@@ -17,9 +17,9 @@ const FORM_HEIGHT = 704; // fixed .login-form frame height (login/styles.scss)
 // While the menu media is up, the login/character-select panel is pushed below
 // the title art and scaled to fit; both values are computed per viewport.
 const MENU_CSS = `
-body.alduinak-menu-media .login-form {
-  margin: var(--alduinak-menu-shift, 45vh) auto auto;
-  transform: scale(var(--alduinak-menu-scale, 1));
+body.mundus-menu-media .login-form {
+  margin: var(--mundus-menu-shift, 45vh) auto auto;
+  transform: scale(var(--mundus-menu-scale, 1));
   transform-origin: top center;
 }
 `;
@@ -50,7 +50,7 @@ class MainMenuMedia {
     if (!this.root) this.mount();
     if (this.video) this.video.play().catch(() => {});
     this.applyMute();
-    document.body.classList.add('alduinak-menu-media');
+    document.body.classList.add('mundus-menu-media');
     this.layout();
     window.addEventListener('resize', this.onResize);
   }
@@ -58,7 +58,7 @@ class MainMenuMedia {
   // Full unmount so the video decoder does not keep running behind gameplay
   hide() {
     window.removeEventListener('resize', this.onResize);
-    document.body.classList.remove('alduinak-menu-media');
+    document.body.classList.remove('mundus-menu-media');
     if (!this.root) return;
     try { this.video && this.video.pause(); } catch (e) {}
     try { this.music && this.music.pause(); } catch (e) {}
@@ -84,16 +84,16 @@ class MainMenuMedia {
     const titleBlock = (this.dragonImg ? dragonH + 10 : 0) + (this.textImg ? textH : 0);
     const shift = top + titleBlock + 24;
     const scale = Math.min(1, Math.max(0.5, (vh - shift - 16) / FORM_HEIGHT));
-    document.body.style.setProperty('--alduinak-menu-shift', shift + 'px');
-    document.body.style.setProperty('--alduinak-menu-scale', scale.toFixed(3));
+    document.body.style.setProperty('--mundus-menu-shift', shift + 'px');
+    document.body.style.setProperty('--mundus-menu-scale', scale.toFixed(3));
   }
 
   mount() {
     this.root = document.createElement('div');
 
-    if (!document.getElementById('alduinak-menu-css')) {
+    if (!document.getElementById('mundus-menu-css')) {
       const style = document.createElement('style');
-      style.id = 'alduinak-menu-css';
+      style.id = 'mundus-menu-css';
       style.textContent = MENU_CSS;
       document.head.appendChild(style);
     }
@@ -175,6 +175,6 @@ class MainMenuMedia {
   }
 }
 
-window.__alduinakMenuMedia = window.__alduinakMenuMedia || new MainMenuMedia();
+window.__mundusMenuMedia = window.__mundusMenuMedia || new MainMenuMedia();
 
-export default window.__alduinakMenuMedia;
+export default window.__mundusMenuMedia;

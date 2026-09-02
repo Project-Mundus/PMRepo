@@ -17,7 +17,7 @@ type Mp = any;
 //
 // Settings (server-settings.json "voiceChat" object):
 //   { "enabled": true, "url": "ws://host:7880", "apiKey": "...",
-//     "apiSecret": "...", "room": "alduinak", "rangeUnits": 2000 }
+//     "apiSecret": "...", "room": "mundus", "rangeUnits": 2000 }
 // rangeUnits falls back to chatRanges.say, then 2000 game units.
 
 // Short on purpose: LiveKit refreshes tokens over live connections, and a kicked/banned player's credential dies with the TTL (no admin-API revocation)
@@ -54,7 +54,7 @@ export class VoiceSystem implements System {
   private url = "";
   private apiKey = "";
   private apiSecret = "";
-  private room = "alduinak";
+  private room = "mundus";
   // Voice modes cycled in-game with Alt+V; units are game units (70 per meter): whisper 2m, talk 12m, shout 45m by default
   private modes: Array<{ key: string; label: string; units: number }> = [
     { key: "whisper", label: "Whisper", units: 140 },

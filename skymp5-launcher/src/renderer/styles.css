@@ -1130,16 +1130,16 @@ html, body {
   border-bottom-color: var(--gold);
 }
 
-/* Vortex integration */
+/* MO2 integration */
 
-.vortex-status-row {
+.mo2-status-row {
   display: flex;
   align-items: center;
   gap: 8px;
   margin-bottom: 6px;
 }
 
-.vortex-status-dot {
+.mo2-status-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -1147,17 +1147,17 @@ html, body {
   background: rgba(232, 224, 208, 0.15);
 }
 
-.vortex-status-dot.dot-ok   { background: #6abf5e; }
-.vortex-status-dot.dot-warn { background: #c9a227; }
+.mo2-status-dot.dot-ok   { background: #6abf5e; }
+.mo2-status-dot.dot-warn { background: #c9a227; }
 
-.vortex-status-text {
+.mo2-status-text {
   font-family: 'Barlow Condensed', sans-serif;
   font-size: 12px;
   letter-spacing: 0.5px;
   color: rgba(232, 224, 208, 0.45);
 }
 
-.btn-detect-vortex {
+.btn-detect-mo2 {
   align-self: flex-start;
   padding: 7px 14px;
   background: transparent;
@@ -1173,8 +1173,8 @@ html, body {
   margin-top: 4px;
 }
 
-.btn-detect-vortex:hover    { border-color: rgba(201,162,39,0.5); color: var(--gold); }
-.btn-detect-vortex:disabled { opacity: 0.4; cursor: default; }
+.btn-detect-mo2:hover    { border-color: rgba(201,162,39,0.5); color: var(--gold); }
+.btn-detect-mo2:disabled { opacity: 0.4; cursor: default; }
 
 .setting-checkbox-row {
   display: flex;

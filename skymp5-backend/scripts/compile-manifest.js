@@ -15,13 +15,13 @@ const zlib    = require('zlib')
 const { execFileSync } = require('child_process')
 // Prefer a full 7-Zip: the standalone 7za from 7zip-bin has no Rar codec, so
 // .rar downloads would be silently skipped and their mods inlined instead.
-const SEVEN = [process.env.ALDUINAK_7Z, 'C:\\Program Files\\7-Zip\\7z.exe']
+const SEVEN = [process.env.MUNDUS_7Z, 'C:\\Program Files\\7-Zip\\7z.exe']
   .find(p => p && fs.existsSync(p)) || require('7zip-bin').path7za
 
 // Args
 
 function parseArgs(argv) {
-  const a = { profile: 'Alduinak' }
+  const a = { profile: 'Project Mundus' }
   for (let i = 0; i < argv.length; i++) {
     const k = argv[i]
     if      (k === '--mo2')     a.mo2     = argv[++i]
@@ -34,7 +34,7 @@ function parseArgs(argv) {
 
 const args = parseArgs(process.argv.slice(2))
 if (!args.mo2) {
-  console.error('Usage: node scripts/compile-manifest.js --mo2 <MO2 root> [--game <game root>] [--profile Alduinak]')
+  console.error('Usage: node scripts/compile-manifest.js --mo2 <MO2 root> [--game <game root>] [--profile ProjectMundus]')
   process.exit(1)
 }
 

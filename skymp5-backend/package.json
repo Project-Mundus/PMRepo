@@ -1,7 +1,7 @@
 {
-  "name": "alduinak-backend",
+  "name": "mundus-backend",
   "version": "1.0.0",
-  "description": "Alduinak launcher backend API - serves news, server status, and client setup files",
+  "description": "Mundus launcher backend API - serves news, server status, and client setup files",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",

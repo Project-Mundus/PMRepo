@@ -85,7 +85,7 @@ export class VoiceService extends ClientListener {
         return;
       }
       this.pttDown = true;
-      this.sp.browser.executeJavaScript(`window.__alduinakVoice && window.__alduinakVoice.setPtt(true)`);
+      this.sp.browser.executeJavaScript(`window.__mundusVoice && window.__mundusVoice.setPtt(true)`);
       this.sendAfkPing();
     } else if (e.isUp && this.pttDown) {
       this.releasePtt();
@@ -106,7 +106,7 @@ export class VoiceService extends ClientListener {
     this.mode = key;
     this.modePersistAt = Date.now() + MODE_PERSIST_DELAY_MS;
     this.sp.browser.executeJavaScript(
-      `window.__alduinakVoice && window.__alduinakVoice.setMode(${JSON.stringify(key)})`
+      `window.__mundusVoice && window.__mundusVoice.setMode(${JSON.stringify(key)})`
     );
   }
 
@@ -141,7 +141,7 @@ export class VoiceService extends ClientListener {
 
   private releasePtt() {
     this.pttDown = false;
-    this.sp.browser.executeJavaScript(`window.__alduinakVoice && window.__alduinakVoice.setPtt(false)`);
+    this.sp.browser.executeJavaScript(`window.__mundusVoice && window.__mundusVoice.setPtt(false)`);
   }
 
   private onBrowserMessage(e: BrowserMessageEvent) {
@@ -170,7 +170,7 @@ export class VoiceService extends ClientListener {
     this.pendingRefrId = 0;
     this.disabledByServer = false;
     this.nextTokenAttemptAt = 0;
-    this.sp.browser.executeJavaScript(`window.__alduinakVoice && window.__alduinakVoice.disconnect()`);
+    this.sp.browser.executeJavaScript(`window.__mundusVoice && window.__mundusVoice.disconnect()`);
   }
 
   private onCustomPacketMessage(event: ConnectionMessage<CustomPacketMessage>): void {
@@ -213,7 +213,7 @@ export class VoiceService extends ClientListener {
     const cfg = { modes: this.modes, mode: this.mode };
     this.pendingRefrId = this.myRefrId();
     this.sp.browser.executeJavaScript(
-      `window.__alduinakVoice && window.__alduinakVoice.connect(${JSON.stringify(url)}, ${JSON.stringify(token)}, ${JSON.stringify(cfg)})`
+      `window.__mundusVoice && window.__mundusVoice.connect(${JSON.stringify(url)}, ${JSON.stringify(token)}, ${JSON.stringify(cfg)})`
     );
   }
 
@@ -298,7 +298,7 @@ export class VoiceService extends ClientListener {
       if (dist <= includeWithin) peers[form.refrId.toString(16)] = Math.round(dist);
     }
     this.sp.browser.executeJavaScript(
-      `window.__alduinakVoice && window.__alduinakVoice.setPeers(${JSON.stringify(peers)})`
+      `window.__mundusVoice && window.__mundusVoice.setPeers(${JSON.stringify(peers)})`
     );
   }
 }
