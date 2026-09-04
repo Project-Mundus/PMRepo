@@ -3,7 +3,7 @@
 // clients that predate the N hotkey. BountyBoardSystem does all the work.
 
 api.registerChatCommand('board', (actorId) => {
-  const open = globalThis.__alduinakBountyOpen
+  const open = globalThis.__mundusBountyOpen
   if (typeof open === 'function') open(actorId)
   else api.notifyActor(actorId, 'The notice boards are not in service right now.')
 })

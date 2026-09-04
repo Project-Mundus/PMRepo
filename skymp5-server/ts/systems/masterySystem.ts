@@ -10,7 +10,7 @@ type Mp = any;
 // A character picks a single profession and keeps it. Rank comes from time
 // actually played on that character - not from XP, not from grinding an action -
 // so the ladder rewards showing up and roleplaying rather than farming. Each
-// rank grants a marker spell; recipes in the Alduinak plugin carry a HasSpell
+// rank grants a marker spell; recipes in the Mundus plugin carry a HasSpell
 // condition for the marker, which is the one gate the engine honours on both
 // sides: the vanilla crafting menu hides recipes the player cannot make, and
 // the server independently refuses a forged craft packet for them.
@@ -31,7 +31,7 @@ type Mp = any;
 //   masteryRankHours     [adept, expert, master] thresholds, default [10, 40, 100]
 //   masteryIdleMinutes   idle minutes that stop accrual, default 5
 //   masterySpells        { "<professionId>": [noviceSpell, adept, expert, master] }
-//                        form ids from the Alduinak plugin; professions absent
+//                        form ids from the Mundus plugin; professions absent
 //                        from the map simply grant no spell.
 
 const MASTERY_PROP = "private.mastery";

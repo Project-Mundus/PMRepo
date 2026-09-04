@@ -5,7 +5,7 @@ require('dotenv').config({ path: require('path').join(__dirname, '..', '.env') }
 /**
  * Merge pipeline: copies the client source into the bucket the launcher downloads and builds the zip.
  *   build/dist/client (via `npm run populate`) -> build/client-files/root/ -> build/client-files/<zip> + data/files-version.json
- * SKSE is NOT included; the user manages it via the Vortex collection.
+ * SKSE is NOT included; the user manages it via the MO2 collection.
  * Run standalone: node scripts/merge-files.js. Called by scripts/setup-client.js and routes/webhook.js.
  */
 

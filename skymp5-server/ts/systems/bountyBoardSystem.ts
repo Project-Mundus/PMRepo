@@ -123,7 +123,7 @@ export class BountyBoardSystem implements System {
     const maxDistance = Number(all?.["bountyBoardMaxDistance"]);
     if (Number.isFinite(maxDistance) && maxDistance > 0) this.maxDistance = maxDistance;
 
-    this.logDir = process.env.ALDUINAK_LOG_DIR || String(all?.["logDir"] || "") || "C:\\logs";
+    this.logDir = process.env.MUNDUS_LOG_DIR || String(all?.["logDir"] || "") || "C:\\logs";
     try { fs.mkdirSync(this.logDir, { recursive: true }); } catch { /* appendFile will complain */ }
 
     const mp = ctx.svr as Mp;
@@ -153,7 +153,7 @@ export class BountyBoardSystem implements System {
     });
     // The gamemode's /board chat command opens the menu through this bridge,
     // same globalThis pattern as the trade log.
-    (globalThis as any).__alduinakBountyOpen = (actorId: number) => {
+    (globalThis as any).__mundusBountyOpen = (actorId: number) => {
       const userId = this.userOf(ctx, Number(actorId) >>> 0);
       if (userId >= 0) this.onOpenRequest(ctx, userId);
     };

@@ -1,6 +1,6 @@
 {
   "name": "mundus-launcher",
-  "version": "1.0.1",
+  "version": "1.0.0",
   "description": "Launcher for the Project Mundus server",
   "productName": "MundusLauncher",
   "main": "src/main.js",

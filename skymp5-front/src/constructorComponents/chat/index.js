@@ -17,7 +17,7 @@ const MAX_HISTORY_LENGTH = 20;
 
 const SHOUTREGEXP = /№(.*?)№/gi;
 
-// Chat settings (font size, transparency, lock, highlights, nametag toggles, window pos/size) persist via window.__alduinakChatSettings: the client injects saved values on mount and writes changes under Data/Platform since localStorage/CEF cache do not survive a relaunch
+// Chat settings (font size, transparency, lock, highlights, nametag toggles, window pos/size) persist via window.__mundusChatSettings: the client injects saved values on mount and writes changes under Data/Platform since localStorage/CEF cache do not survive a relaunch
 const loadChatSettings = () => {
   try { return window.__mundusChatSettings || {}; }
   catch (e) { return {}; }
