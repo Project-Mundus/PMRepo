@@ -44,6 +44,7 @@ import { PlayerActionService } from "./services/services/playerActionService";
 import { EmoteService } from "./services/services/emoteService";
 import { MasteryService } from "./services/services/masteryService";
 import { BountyBoardService } from "./services/services/bountyBoardService";
+import { InteractionPromptService } from "./services/services/interactionPromptService";
 import { RestraintService } from "./services/services/restraintService";
 import { CaptureConsentService } from "./services/services/captureConsentService";
 import { SearchService } from "./services/services/searchService";
@@ -74,6 +75,7 @@ import { SweetTaffyEvalService } from "./services/services/sweetTaffyEvalService
 import { NotificationService } from "./services/services/notificationService";
 import { ConnectionWatchdogService } from "./services/services/connectionWatchdogService";
 import { MenuMediaService } from "./services/services/menuMediaService";
+import { CharacterProgressService } from "./services/services/characterProgressService";
 
 once("update", () => {
   Utility.setINIBool("bAlwaysActive:General", true);
@@ -127,6 +129,7 @@ const main = () => {
       new EmoteService(sp, controller),
       new MasteryService(sp, controller),
       new BountyBoardService(sp, controller),
+      new InteractionPromptService(sp, controller),
       new RestraintService(sp, controller),
       new CaptureConsentService(sp, controller),
       new SearchService(sp, controller),
@@ -143,6 +146,7 @@ const main = () => {
       new GamemodeUpdateService(sp, controller),
       new ChatService(sp, controller),
       new MenuMediaService(sp, controller),
+      new CharacterProgressService(sp, controller),
       new FrontHotReloadService(sp, controller),
       new BlockedAnimationsService(sp, controller),
       new WorldView(sp, controller),

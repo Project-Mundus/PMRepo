@@ -23,6 +23,7 @@ src/
   mo2.js           Mod Organizer 2 portable install + manifest replay
   nexus.js         Nexus Mods API (key validation, premium downloads, SSO)
   ini.js           Minimal INI reader/writer for SkyrimPrefs.ini
+  gameversion.js   SkyrimSE.exe version gate (1.6.1170.0) + Reliquary downgrade popup
   renderer/
     index.html     UI shell: topbar, content grid, modals
     renderer.js    Event listeners, API calls, settings, news/modlist rendering
@@ -83,6 +84,33 @@ Online mode (server `offlineMode: false`):
 In online mode the session credentials are written separately to
 `Data/Platform/PluginsNoLoad/auth-data-no-load.js` so the in-game SkyMP client
 skips its own Discord OAuth dialog.
+
+## Game version
+
+The client is built against Skyrim SE/AE **1.6.1170.0** (Steam). `gameversion.js`
+reads the FileVersion straight out of `SkyrimSE.exe` (pure node PE parser, no
+process spawn) and the launcher checks it at startup, before the portable game
+copy is created, and on every launch path via `prepareForLaunch`. Any other
+build opens a "Wrong Skyrim version" popup with a button to the Reliquary
+downgrade tool (https://www.nexusmods.com/site/mods/2188?tab=description) and
+blocks the launch; the renderer warning strip shows the same message. GOG
+installs (Galaxy64.dll / goggame-* present) are accepted at **1.6.1179.0**, the
+GOG build of the same generation. An unreadable version never blocks, it is
+only logged.
+
+## Repair tab
+
+Settings > Repair replaces the old Installation tab. Every button fully
+reinstalls its section (`{ force: true }` over the same IPC as the Play-button
+install): **Repair MO2** wipes MO2's own files (mods, downloads, profiles, the
+game copy and the instance inis stay) and unpacks it again, **Repair Game Copy**
+re-copies every vanilla file, **Repair SKSE** re-downloads the archive and
+replaces the root files, **Repair Client Files** re-downloads the client zip,
+**Repair Modlist** rebuilds every mod from the install manifest. **Repair All**
+chains them in that order; **Check Files** (`install:check`) is a read-only scan
+that lists every missing/corrupt/extra/outdated file with the button that fixes
+it. It compares client files by size + sha256 when `/api/files/version` carries
+the `files[]` list written by the backend's `npm run merge`.
 
 ## Persistent store keys
 

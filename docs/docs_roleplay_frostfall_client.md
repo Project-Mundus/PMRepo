@@ -12,15 +12,16 @@ All menus render as `form` widgets and **preserve SkyMP's chat widget**
 
 ---
 
-## Key bindings (all configurable in client settings)
+## Key bindings (configurable in client settings unless noted)
 
 | Key | Service | Setting | Purpose |
 | --- | --- | --- | --- |
 | `H` | HousingService | `housingMenuKeyCode` | Property panel → `/property …` |
-| `Y` | PlayerActionService | `interactMenuKeyCode` | Crosshair a player → justice/captivity/combat/staff commands |
+| `E` | PlayerActionService | game control `Activate` (Settings > Controls or launcher Game Hotkeys, applies immediately) | Crosshair a player character → interaction menu (follows the game's Activate control on any input device; engine activation of the clone is blocked) |
 | `U` | PersonalMenuService | `personalMenuKeyCode` | Self hub → help/skills/bounty/property/lecture/training/faction-docs |
 | `F6` | BrowserService | `freeCursorKeyCode` | Free / lock the mouse cursor |
 | `Enter`, `T` | BrowserService | `chatFocusKeyCodes` | Focus the chat box to type |
+| `F1` | BrowserService | `hideUiKeyCode` | Hide every overlay (chat, prompts, nametags, voice banner, open menus); press again to show. Menu hotkeys and chat focus are inert while hidden; server screens (death, trade, consent prompts, character select) bring the interface back |
 
 Chat channel selector (Say / OOC `/ooc` / Me `/me` / Faction `/f`) lives above
 the chat input. Quit-to-desktop button is on the login menu.
